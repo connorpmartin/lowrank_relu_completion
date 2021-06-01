@@ -1,19 +1,21 @@
 %cvx_solver mosek_3 %one session
 %cvx_save_prefs %save settings.
 
+%plots mse of rank constraint on basic lrmc recovery of thresholded low-rank matrices.
+
 
 kmax = 5;
 d = 100;
 n=200;
 ks = 2:9;
 n_ks = length(ks);
-n_reps = 5; % number of replicated trials
+n_reps = 1; % number of replicated trials
 output = zeros(n_ks, n_reps);
 
 
 
 for j = 1:n_reps
-for i = 8%1:n_ks
+for i = 1:n_ks
     tic
     k = ks(i);
     X = randn(d,k)*randn(k,n);
@@ -22,6 +24,7 @@ for i = 8%1:n_ks
     qt = 0.5;
     X_val_thresh = X_vals(floor(qt*numel(X)));
 
+    X_val_thresh
     Omega = (X >= X_val_thresh);
 
     tic

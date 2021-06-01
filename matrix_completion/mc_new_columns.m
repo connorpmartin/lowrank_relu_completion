@@ -1,6 +1,7 @@
 %cvx_solver mosek_3 %one session
 %cvx_save_prefs %save settings.
 
+%iterate over columns
 
 r = 5;
 d = 100;

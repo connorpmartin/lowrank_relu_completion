@@ -5,11 +5,13 @@ clear all;
 
 % ReLU 100x200 quantile variation experiment.
 
+%vary over percent removal
 
 d = 100;
 n=200;
 r = 8;
 
+%what're these used for?
 qt = d*n;%total
 q1 = d*r+n*r-50;
 q2 = d*r+n*r+10;
