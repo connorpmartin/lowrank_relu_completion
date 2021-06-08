@@ -8,6 +8,7 @@ J.-F.Cai,E.J.Cande`s,andZ.Shen.Asingularvaluethresholding algorithm for matrix c
 """
 #fields institute 
 #wed-fri: learning stuff!
+#2.5hrs per day paid
 
 #generative model which makes those patterns high probability
 #maybe play around with models which specifically create relu-completable matrices?
