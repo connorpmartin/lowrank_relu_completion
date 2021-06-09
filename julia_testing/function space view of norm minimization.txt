@@ -1,0 +1,26 @@
+function space view of norm minimization in multi-channel linear channel
+
+learning functions: have input & output, learn function to map input to output
+
+minimize loss between observed examples 
+
+overparameterized:
+large class of functions to optimize over
+so multiple global minimizers, but not all are good predictors
+(so we need regularization)
+
+common in deep neural networks: training large networks on large sets
+also if you were choosing an arbitrary continuous functions or smth
+
+different gradient descent methods implicitly regularize the space.
+
+common regularization situations:
+weight regularization encouraging weight decay
+
+
+Studying: how does weight control influence function control?
+
+for fc layers, it's just regularizing the matrix
+for conv, it's regularizing the dft (since conv is just multiplying dft)
+...but it has a 2/L norm? not sure why...
+

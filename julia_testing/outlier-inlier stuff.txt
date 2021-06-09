@@ -1,0 +1,17 @@
+trying to reconstruct a lower-than-n rank subspace r with some outliers and inliers
+we had a problem where when r was close to n we had issues
+developed new method where 
+
+trying to find a b which is orthogonal to as many points as possible
+so if X is a matrix with data point columns
+we minimize ||X'b||_0
+(so basically the # which dont fit on the hyperplane)
+
+we've got a reimann derivative ? 
+suggesting some eta representing the outlier clustering
+but if outliers are 
+
+what if m and n go to infinity but there's bias in the outlier type?
+wouldnt your guarantee still 
+
+inlier to outlier ratio is O(n^2)
