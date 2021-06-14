@@ -1,0 +1,18 @@
+example: 
+rank <= r nonconvex optimization
+
+signal processing
+normally we use Hankel structured low rank completion
+from past data as an image of
+
+try and solve via directly taking the SVD of the Hankel matrix
+where we take n samples (since we're assuming the matrix has complexity n)
+and solve for the rest of the Hankel from there.
+
+w \in B -> w is trajectory of B
+B is an exact model for w
+
+basically he just wants to directly solve the system with no redundancy
+i really hope that the empirical part ends up looking good but even if it does that's probably still suspicious
+
+this is like doing LRMC with exactly r columns; youre basically getting rid of the redundancy you need to account for measurement errors?

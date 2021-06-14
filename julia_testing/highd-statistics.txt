@@ -1,0 +1,24 @@
+starting: plant a k-clique in a G(n,1/2)
+2 problems: detection- is this a random G(n,1/2) or planted?
+recovery - get the clique
+
+impossible when k<2log2(n)
+easy when k>sqrt(n)
+spectral analysis on adj matrix?
+in the middle we dont have a poly time algo.
+
+
+for new problems: can we find where these bounds between impossible/hard/easy are?
+
+low-degree polynomial method to predict/explain average cast time.
+
+studing a restricted class: multivariate polynomial f: R^n -> R^m
+input: maybe a graph, Y \in {0,1}^n choose 2
+
+in this case the output might be {0,1} (true or false)
+
+low means O(logn) or so where N is the input dimension
+
+examples are power iterations, locals on sparse graphs, block matrix analysis, ...
+
+it's like a fourier transform, but for statistical analysis tools. the idea is that we can approximate most statistical tools as low-complexity analysis polynomials?
