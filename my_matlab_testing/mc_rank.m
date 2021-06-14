@@ -1,9 +1,11 @@
+%copied from prof. balzano's work with minor alterations by connor martin
+
 d = 100;
 n= 200;
-rs = [2,3,5,7,9,12,16,20,24,28,32,36];
+rs = [2,3,5,7,9,12,16,20,24];
 
 n_rs = length(rs);
-n_reps = 5; % number of replicated trials
+n_reps = 3; % number of replicated trials
 output = zeros(n_rs, n_reps);
 
 
@@ -60,7 +62,7 @@ plot(Abscissa,Medians,'red', 'LineWidth',2);
 scatter(repmat(Abscissa',size(output,2),1),log10op(:),'ro');
 xlabel("rank(r)");
 % ylabel("log_{10}(MSE)");
-title("ReLU MC\newline X_{true} = v*w',\newline, d=" +  num2str(d) +" , n="+n+", r changes");
+title("ReLU MC\newline X_{true} = v*w',\newline, d=" +  num2str(d) +" , n="+num2str(n)+", r changes");
 ylabel("log_{10}(NRMSE) of \hat{X} w.r.t. X_{true}");
 
 

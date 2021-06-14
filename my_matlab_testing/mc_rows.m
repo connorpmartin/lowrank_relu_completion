@@ -1,10 +1,11 @@
-
+%copied from prof. balzano's work with minor alterations by connor martin
 
 %iterate over rows 
 
 
 
 r = 5;
+
 ds = [25,37,50,62,75,87,100,125,150,175,200,225,250,275,300];
 % n=200;
 n = 100;
@@ -27,7 +28,7 @@ for i = 1:n_ds
 
     %disp(X_val_thresh);
     
-    Omega = (X >= X_val_thresh);
+    Omega = (X >= 0);
 
     tic
     X_comp = lrmc(X,Omega);

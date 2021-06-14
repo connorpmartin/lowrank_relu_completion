@@ -1,3 +1,4 @@
+%copied from prof. balzano's work with minor alterations by connor martin
 
 
 %iterate over columns
@@ -10,7 +11,7 @@ d = 100;
 ns = [25,37,50,62,75,87,100,125,150,175,200,225,250,275,300];
 % rs = 2:9;
 n_ns = length(ns);
-n_reps = 5; % number of replicated trials
+n_reps = 3; % number of replicated trials
 output = zeros(n_ns, n_reps);
 
 
@@ -27,7 +28,7 @@ for i = 1:n_ns
 
     %disp(X_val_thresh);
     
-    Omega = (X >= X_val_thresh);
+    Omega = (X >= 0);
 
     tic
     X_comp = lrmc(X,Omega);
