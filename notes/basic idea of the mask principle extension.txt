@@ -1,0 +1,47 @@
+we know that assuming a constant mask, we can generate basically-sufficient conditions based on the constraint matrix
+
+this paper assumed that we were working with a random sample of weights on the entire Grassmanian space of matrices.
+However, assuming a given subspace, we know that there's a range of weights where the final column still has every at same sign
+
+
+subspace = [[a,0,0],[-b,b,0]] for positive a,b
+
+subspace * weights (length 2 vector) = length 3 vector
+
+so our observations are a 3 by n matrix
+
+weights = [2, 1]
+weights = [3, 2] -> the relu mask is still [1 1 1]
+
+weights: whenever we have [x,y] for positive x,y and y > x the relu mask is the same
+
+
+since we assume that we're sampling the subspace and weights randomly
+this set of subspaces and weights all have the same mask
+
+our observations are A * W, for A (a orthogonal matrix representing the subspace) and W (a matrix representing the weights)
+A is 3 by 2
+W is 2 by n
+
+
+og subspace is m by d
+we observe a m by n matrix (n observations from the subspace)
+, put through a relu
+
+W is randomly sampled, A is the RREF form of a randomly sampled matrix from the Grassmanian
+
+we have a sample space of Grassmanian (m by d) times our weight sample (d by n)
+
+relu determines the S_is
+
+we can partition this into disjoint chunks S_1,...,S_e (i think we can get an upper bound on e)
+where sampling any A,W from S_i
+yields the mask M_i
+
+we want S_i s.t. A_1,W_1 from S_i, A_2,W_2 from S_i (where the two samples are independent)
+sign.(A_1W_1) == sign.(A_2W_2)
+
+
+
+ok so basically it's constant within the set S_i, so we apply the paper on each convex set and hopefully cobble together something (boundaries might be weird) 
+
