@@ -15,12 +15,3 @@ optargs allows any additional arguments to be passed to individual solver functi
 
 #this line interpolates the method by adding lrmc_ and calls it on x and Ω, passing any additional optional arguments.
 lrmc(x::Vector,Ω::BitMatrix;method::Symbol = :general,optargs...) = eval(:($(Symbol(:lrmc_,method))(x,Ω,optargs...)))
-
-
-#perform unit tests for each individual method
-function lrmc(p::Symbol)
-    p != :test && throw("Use :test to run tests for lrmc()")
-    for method in completion_methods
-        method[2](:test)
-    end
-end
