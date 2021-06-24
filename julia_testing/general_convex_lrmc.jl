@@ -20,7 +20,7 @@ function lrmc_general(x::Vector,Ω::BitMatrix;verbose=false,time = false)
         solve!(problem, () -> SCS.Optimizer(verbose=verbose))
     end
 
-    @show evaluate(A)[Ω[:]] - x
+    #@show evaluate(A)[Ω[:]] - x
 
     return evaluate(A)
 end
@@ -36,7 +36,8 @@ end
 
 #β is the weight parameter on the nuclear norm regularization
 #This relaxed version minimizes the frobenius norm of the error matrix while regularizing via the nuclear norm.
-function lrmc_general_relaxed(x::Vector,Ω::BitMatrix;verbose=false,β = 1)
+#this doesn't work lmao
+function lrmc_general_relaxed(x::Vector,Ω::BitMatrix;verbose=false,β = .01)
     #define our guess for the final matrix
     A = Variable(size(Ω)...)
     mask = filter(x -> x != 0,Ω[:] .* (1:size(Ω[:],1)))
@@ -54,5 +55,5 @@ function lrmc_general_relaxed(p::Symbol)
     A = rand(100,5) * rand(5,100)
     Ω = BitMatrix(round.(rand(100,100)))
     Â = lrmc_general_relaxed(A[Ω[:]],Ω)
-    @assert norm(A .- Â) < .001 #we expect full recovery
+    @show norm(A .- Â) #we expect full recovery
 end

@@ -1,0 +1,22 @@
+\documentclass[12pt]{article}
+\begin{document}
+OK, let's assume that U, the sampled subspace, is an orthogonal matrix with unit columns. We can do this because we can just use QR factorization (i think) to put literally any low-rank matrix into this form.
+
+From here, we want to consider the distribution of the matrix entries dependent on our weight generation.
+
+First case: let's generate each column of the weight matrix as a uniform random unit vector.
+
+So $|w|$ = 1. 
+Then Uw has entries which are highly dependent, but let's just consider a single entry, i.
+let u be U[i,:], the ith row of U.
+
+We want to figure out what the distribution of $u \cdot w$ is. Let's consider the probability density of one particular $\theta, 0 \leq \theta \leq \pi$. The distribution of $\theta$ uniquely determines the distribution of $u \cdot w$ because the magnitude of w, our random variable, does not change. 
+
+So here, $\hat{u} \cdot w = cos{\theta}$, so $w = |cos{\theta}|\hat{u}$ as well as $sin{\theta}$ in the plane perpendicular to u. So the unregularized PDF of this distribution is the surface area of the n-1 ball with radius $1 - |cos{\theta}|$, that is (from wikipedia) $(n-1)\frac{\pi^\frac{n-1}{2}}{\Gamma(\frac{n-1}{2} + 1)}(sin{\theta})^{n-2}$. Let's just get rid of those prior terms because they're multiplicative constants which do not depend on $\theta$. So the PDF is $(sin{\theta})^{n - 2}$, or $(|u|^2 - |x|^2)^{\frac{n-2}{2}}$ because $\theta$ describes a right triangle where the length aligned with u has magnitude $\frac{|x|}{|u|}$ (so the final thing comes out to be $|x|$), and the total length of the unit vector is 1. 
+
+Now let's consider w as a uniform random sample from $|w| \leq 1$. This is a bit more realistic but could probably get better. Here, the $\theta$ PDF is defined by a bunch of cones, and $\theta$ does not cleanly translate into output because $|w|$ varies. We can integrate across the possible values of $|w|$ to get a PDF value here: if our final value is x, and we're considering $|w|$, we get $|w||u|(\hat{u} \cdot \hat{w}) = x \Rightarrow cos(\theta) = \frac{x}{|w||u|}$. We can do the same thing as before, but it's important to note that $|w|$ is not always 1. So by the same logic as before, but with $|w|$ as the length, we get $(|w|sin{\theta})^{\frac{n-2}{2}} = (|u|^2|w|^2 - |x|^2)^{\frac{n-2}{2}}$. Then we just need to integrate from 0 to 1 to get pdf(x): $\int_{0}^1 (|u|^2|w|^2 - |x|^2)^{\frac{n-2}{2}}$, oops I have no idea how to do this. Maybe look at conic volumes?
+either way this would only be relevant if we were trying to make it clear that our assumption had a pretty reasonable distribution
+
+
+
+\end{document}
