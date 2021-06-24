@@ -15,9 +15,9 @@ function lrmc_general(x::Vector,Ω::BitMatrix;verbose=false,show=false)
     problem = minimize(nuclearnorm(A),constraint)
     if show
         println("Running Convex.jl algorithm on $(size(Ω,1)) by $(size(Ω,2)) problem")
-        @time solve!(problem, () -> SCS.Optimizer(verbose=verbose))
+        @time solve!(problem, () -> SCS.Optimizer(max_iters=500,verbose=verbose))
     else 
-        solve!(problem, () -> SCS.Optimizer(verbose=verbose))
+        solve!(problem, () -> SCS.Optimizer(max_iters=500,verbose=verbose))
     end
 
     #@show evaluate(A)[Ω[:]] - x
