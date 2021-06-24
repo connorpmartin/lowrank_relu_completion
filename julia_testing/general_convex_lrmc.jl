@@ -2,7 +2,7 @@ using Convex: nuclearnorm,Variable,minimize,solve!,evaluate,sumsquares
 using SCS
 using LinearAlgebra
 
-function lrmc_general(x::Vector,Ω::BitMatrix;verbose=false,time = false)
+function lrmc_general(x::Vector,Ω::BitMatrix;verbose=false,show=false)
     #define our guess for the final matrix
     A = Variable(size(Ω)...)
     
@@ -12,9 +12,9 @@ function lrmc_general(x::Vector,Ω::BitMatrix;verbose=false,time = false)
 
     constraint = A[mask] == x
 
-    
     problem = minimize(nuclearnorm(A),constraint)
-    if time
+    if show
+        println("Running Convex.jl algorithm on $(size(Ω,1)) by $(size(Ω,2)) problem")
         @time solve!(problem, () -> SCS.Optimizer(verbose=verbose))
     else 
         solve!(problem, () -> SCS.Optimizer(verbose=verbose))
