@@ -2,13 +2,20 @@
 #install package dependencies
 import Pkg
 Pkg.add("Convex")
-lrmc_range_testing(param = :height,
-                param_range = 100:100:200,
+lrmc_range_testing(param = :β,
+                param_range = .2:.2:1,
                 #OPTIONAL ARGUMENTS
                 num_trials=5,
+
+                method = lrmc_general_relaxed,
+                datagen = randgen,
+
                 width = 100,
                 height = 100,
                 rank = 5,
-                data_gen = randgen, #a function of width,height,rank which we use to generate the data
+
+
+                show = true,
+                β = .5,
                 )
 savefig("job_heatmap.png")

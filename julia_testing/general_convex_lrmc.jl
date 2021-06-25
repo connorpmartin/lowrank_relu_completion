@@ -42,6 +42,7 @@ function lrmc_general_relaxed(x::Vector,Ω::BitMatrix;verbose=false,β = .01)
     A = Variable(size(Ω)...)
     mask = filter(x -> x != 0,Ω[:] .* (1:size(Ω[:],1)))
 
+    #this is wrong
     problem = minimize(sumsquares(A[mask] - x) + β * nuclearnorm(A))
 
     solve!(problem, () -> SCS.Optimizer(verbose=verbose))

@@ -2,6 +2,24 @@ include("lrmc.jl")
 using StatsBase: rmsd
 using Statistics: mean
 using Plots
+
+"""
+parameter :height, :width, :rank, :method
+parameter_range [100 125 150], 100:25:150 [lrmc_general lrmc_general_relaxed]
+
+num_trials
+lrmc_range_testing iterates over that parameter
+
+
+
+height
+width
+rank
+method = f(x,Ω,optional arguments)
+datagen = f(height,width,rank)
+
+
+"""
 function lrmc_range_testing(;param::Symbol,param_range,num_trials::Integer = 5,input_kwargs...)
     input_kwargs = Dict{Symbol,Any}(input_kwargs)
     grades = zeros(length(param_range),num_trials)
