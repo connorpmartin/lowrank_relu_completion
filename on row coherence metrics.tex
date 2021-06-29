@@ -1,0 +1,27 @@
+\documentclass[12pt]{article}
+\begin{document}
+
+Coherence is a general term 
+
+
+The Babel function is an extension of mututal coherence, where you take the largest clump of p values such that they are all very close to one direction. 
+Neither of these seem great... they're clearly working around identifying a small set of biased values.
+
+I feel like we want to identify general clustering. Here, we can try data clustering on the surface of the r-ball.
+first thought: rectangular clustering metrics on the spherical graph. Unsure how well angle || distance translates to actual vector angles...
+
+Found: Clustering tendency
+The "hopkins statistic" is a method of gauging clustering tendency of a group of data points:
+	-Sample m data points
+	-Generate m uniformly rand. distributed data points.
+	-take the closest pairwise distance of the rand and divide it by the closest pairwise distance between the data points and the rand points
+
+The statistic should be about .5 when the rows are uniformly distributed, and 
+
+My plan is to adapt this to work on an n-ball surface as follows:
+I will use the "distance" metric equal to sin(theta), where theta is the distance between the angles.
+
+
+
+
+\end{document}
