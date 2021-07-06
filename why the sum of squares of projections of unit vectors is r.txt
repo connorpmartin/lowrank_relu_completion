@@ -1,0 +1,39 @@
+
+
+
+
+U = [u1 u2 u3]
+
+
+e1,e2,....,
+
+
+ei onto uj
+
+
+U' * ei
+-> [U[i,1]],U[i,2],...]
+
+U -> sum(U[i,1] * U[:,1] + ... + )
+
+|sum(U[i,1] * U[:,1] + ... + )|
+=sqrt(sum(U[i,1]^2 * |U[:,1]| + ... + ))
+
+=|U[i,:]|
+
+=sqrt(sum_i(|U[i,:]|^2))
+
+ -> Fnorm(U)
+  -> sqrt(sum(svdvals(U)))
+
+  we know that the svdvals of U are -1 or 1 bc orthogonal
+  we know that sum(|P_U * e_i|) = r^2 (where r is the rank of U)
+
+    max(|P_U * e_i|)
+
+
+  [-2,-1,0,1,2] how distributed is this
+
+
+  max()
+

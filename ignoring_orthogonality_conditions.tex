@@ -1,0 +1,17 @@
+\documentclass[12pt]{article}
+\begin{document}
+based on a conversation we had on tuesday I think?
+
+ok so U is orthogonal, which might influence the distribution of the mask matrix \& interfere with our analysis.
+let's suppose we have some condition on a matrix which, if it's interpreted as potentially non-orthogonal basis vectors of a subspace, usually guarantees the pabm conditions.
+this is probably going to be a condition on certain rows of the subspace (to match up with the submatrix condition for pabm)
+so as long as the pabm submatrix is not $|h - r|$ big (and presumably it's moderately small), we're good because of the following logic:
+
+so long as $h >> r$, you can generate literally any h by r orthogonal matrix by generating a h-r by r random matrix and filling in the remaining rows to make the whole thing orthogonal. for this to fail you'd need 2 of those random columns $u_i$ and $u_j$ to have the property $u_i \cdot u_j \geq \sqrt{(1 - |u_i|^2)(1 - |u_j|^2)}$ (because this makes the last columns unable to correct properly). because $u_i$ and $u_j$ are random less-than-unit vectors $u_i \cdot u_j$ has inverse exponential pdf (earlier doc) with respect to h, while $\sqrt{(1 - |u_i|^2)(1 - |u_j|^2)}$ ... also has inverse exponential pdf because it's a bunch of nested hyperspherical surfaces. Damn.
+
+so knowing that a matrix is a random orthogonal matrix doesn't inform us of 
+
+and given that we're trying to see
+
+
+\end{document}
