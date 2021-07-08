@@ -2,20 +2,20 @@
 #install package dependencies
 import Pkg
 Pkg.add("Convex")
-lrmc_range_testing(param = :β,
-                param_range = .2:.2:1,
+Pkg.add("SCS")
+Pkg.add("StatsBase")
+Pkg.add("Plots")
+include("lrmc_range_testing.jl")
+lrmc_range_testing(param = :width,
+                param_range = 50:25:75,
                 #OPTIONAL ARGUMENTS
-                num_trials=5,
+                num_trials=1,
 
-                method = lrmc_general_relaxed,
-                datagen = randgen,
-
-                width = 100,
+                method = lrmc_general,
                 height = 100,
-                rank = 5,
+                rank = 8,
 
 
-                show = true,
-                β = .5,
+                show=true
                 )
-savefig("job_heatmap.png")
+savefig("width_plot.png")

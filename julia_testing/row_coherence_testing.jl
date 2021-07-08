@@ -29,11 +29,13 @@ function hopkins_statistic(U::Matrix;k::Integer = size(U,1))
     dots_u = u * U'
 
     #we're not considering the dot product of u with itself here
-    dots_u[((x,y) -> CartesianIndex(x,y)).(1:k,subset)] .= -Inf #as far as possible
+    dots_u[((x,y) -> CartesianIndex(x,y)).(1:k,subset)] .= -Inf #they aren't considered
 
 
     #calculate nearest neighbor distance (everything is a unit vector so dot product is directly proportional to cos(theta))
     #also refactor so the values go from 0 (aligned) to 2 (antialigned)
+    #the division means that the scale factor is irrelevant
+    #however we may want to consider antiparallel objects to be infinitely far apart from one another
     nn_ur = -1 .* (maximum(dots,dims=2) .- 1)
     nn_uu = -1 .* (maximum(dots_u,dims=2) .- 1)
 

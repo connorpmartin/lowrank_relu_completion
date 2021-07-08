@@ -3,6 +3,9 @@ using StatsBase: rmsd
 using Statistics: mean
 using Plots
 
+#set CVX to machine precision
+#leverage
+
 """
 parameter :height, :width, :rank, :method
 parameter_range [100 125 150], 100:25:150 [lrmc_general lrmc_general_relaxed]
@@ -61,7 +64,7 @@ end
 """
 
 """
-function lrmc_test(;data_gen::Function = randgen,height::Integer = 100,width::Integer = 100,rank::Integer = 5,
+function lrmc_test(;data_gen::Function = rand_gen,height::Integer = 100,width::Integer = 100,rank::Integer = 5,
                     mask_gen::Function = x -> x ≥ 0,lrmc_args...)
     A = data_gen(height,width,rank)
     Ω = mask_gen.(A)
@@ -72,6 +75,6 @@ function lrmc_test(;data_gen::Function = randgen,height::Integer = 100,width::In
     return rmsd(A,Â,normalize=true)
 end
 
-function randgen(height::Integer = 100,width::Integer = 100,rank::Integer = 5)
-    return (rand(height,rank) .- .5) * (rand(rank,width) .- .5)
+function rand_gen(height::Integer = 100,width::Integer = 100,rank::Integer = 5)
+    return randn(height,rank) * randn(rank,width)
 end

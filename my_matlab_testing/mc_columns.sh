@@ -1,6 +1,6 @@
 #!/bin/bash -l
 #SBATCH --job-name=matlab_test
-#SBATCH --account=connorpm # adjust this to match the accounting group you are using to submit jobs
+#SBATCH --account=girasole1 # adjust this to match the accounting group you are using to submit jobs
 #SBATCH --time=0-03:00         # adjust this to match the walltime of your job
 #SBATCH --nodes=1      
 #SBATCH --ntasks=1
