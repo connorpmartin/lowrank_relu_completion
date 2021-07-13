@@ -1,6 +1,6 @@
 using Convex: nuclearnorm,Variable,minimize,solve!,evaluate,sumsquares
-using SCS
-using LinearAlgebra
+using SCS: Optimizer
+using LinearAlgebra: norm
 
 function lrmc_general(x::Vector,Ω::BitMatrix;verbose=false,show=false)
     #define our guess for the final matrix

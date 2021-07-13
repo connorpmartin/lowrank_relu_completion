@@ -1,7 +1,7 @@
 include("lrmc.jl")
 using StatsBase: rmsd
 using Statistics: mean
-using Plots
+using Plots: plot
 
 #set CVX to machine precision
 #leverage

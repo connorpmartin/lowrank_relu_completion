@@ -1,0 +1,37 @@
+\documentclass[12pt]{article}
+\usepackage{enumerate, amsmath, amsthm, amsfonts, amssymb, mathrsfs, graphicx, paralist, stmaryrd}
+\usepackage[usenames, dvipsnames]{color}
+\usepackage[margin=1in]{geometry} 
+\usepackage[bookmarks, bookmarksdepth=2, colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue]{hyperref}
+\usepackage{eucal}
+\usepackage{tikz-cd}
+\begin{document}
+
+prof. balzano mentioned that anti-aligned vectors also cause problems with image reconstruction. trying to look into why that is.
+
+suppose we have highly clustered sets of rows $\beta_1,...,\beta_k$, where by "highly clustered" we mean that the vectors in each $\beta_i$ are very close to one another w.r.t. orientation. Let's reorder U such that $U = \begin{bmatrix} U_{\beta_1}\\...\\U_{\beta_k}\end{bmatrix}$. This shuffles the rows of UW, which should not change completability, so we're fine here.
+
+the idea is that we can reshuffle the columns of UW by their alignment with these groups.
+
+so basically we have $UW = \begin{bmatrix} ~1 ~0 ... ~0\\~0 ~1 ... ~0 \\ ... ... ... ... \\ ~0 ~0 ... ~1\end{bmatrix}$
+
+and if we solve those subproblems (which should be easy), it's just a matter of fitting them back together. basically, how do we align these smaller subspaces correctly?
+
+Let's consider k=2. So we have $U = \begin{bmatrix} U_{\beta_1} \\U_{\beta_2}\end{bmatrix}$ and have found valid subspaces for $U_{\beta_1}$ and $U_{\beta_2}$. Because this is a matter of alignment, WLOG we can set $U_{\beta_2}$ to a basis for the subspace and orient $U_{\beta_1}$ accordingly. Consider some orthogonal basis $\Gamma$ for the subspace of $U_{\beta_1}$. 
+
+Let's consider our matrix $\begin{bmatrix} U_{\beta_1} \\U_{\beta_2}\end{bmatrix}\begin{bmatrix}W_1 & W_2\end{bmatrix} = \begin{bmatrix}A & B \\C & D\end{bmatrix}$. A and D have been used to recover the subspaces. 
+
+Given an orthogonal basis for a subspace, we can translate it into another basis via a linear combination: $\Gamma V = U_{\beta_1}$. When we want the result to be orthogonal as well, V is necesasrily orthogonal. So we are solving for an r by r orthogonal matrix. 
+
+
+We can solve for $W_2$ pretty easily by using 
+
+
+so we basically have $U_{\beta_1}Vw = y$ for known $U_{\beta_1},w,y$, and we're trying to solve for a linear combination of the columns of U (a valid basis) which satisfies the $U_{\beta}Vw = y$. 
+
+V must be orthogonal because UV is a linear combination of the columns, but is still orthogonal, and $(UV)'(UV) = V'U'UV = V'V = I$.
+
+
+
+
+\end{document}
