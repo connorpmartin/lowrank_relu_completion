@@ -24,12 +24,31 @@ Let's consider our matrix $\begin{bmatrix} U_{\beta_1} \\U_{\beta_2}\end{bmatrix
 Given an orthogonal basis for a subspace, we can translate it into another basis via a linear combination: $\Gamma V = U_{\beta_1}$. When we want the result to be orthogonal as well, V is necesasrily orthogonal. So we are solving for an r by r orthogonal matrix. 
 
 
-We can solve for $W_2$ pretty easily by using 
+We can solve for $W_2$ pretty easily because we know $U_{\beta_2}$. 
 
 
 so we basically have $U_{\beta_1}Vw = y$ for known $U_{\beta_1},w,y$, and we're trying to solve for a linear combination of the columns of U (a valid basis) which satisfies the $U_{\beta}Vw = y$. 
 
 V must be orthogonal because UV is a linear combination of the columns, but is still orthogonal, and $(UV)'(UV) = V'U'UV = V'V = I$.
+
+
+
+
+
+%here
+
+n total rows
+
+$R_{i_+}$ is the region s.t. any vector v in that region has the property $v \cdot u_i >= 0$ for + and $< 0 $ for minus.
+
+the arrangement of hyperplanes is defined by the intersection of these regions, and has subregions (sign patterns) $p_j \in {0,1}^n$
+
+random rows = random patterns, poly order patterns sampled
+patterns sampled might depend on eachother
+
+sum of (n choose i) bad mask
+
+
 
 
 
