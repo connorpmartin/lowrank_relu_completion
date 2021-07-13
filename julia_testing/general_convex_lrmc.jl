@@ -1,5 +1,5 @@
 using Convex: nuclearnorm,Variable,minimize,solve!,evaluate,sumsquares
-using SCS: Optimizer
+using SCS: Optimizer,SCS
 using LinearAlgebra: norm
 
 function lrmc_general(x::Vector,Ω::BitMatrix;verbose=false,show=false)

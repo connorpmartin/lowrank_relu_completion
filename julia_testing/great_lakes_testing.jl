@@ -6,7 +6,8 @@ Pkg.add("SCS")
 Pkg.add("StatsBase")
 Pkg.add("Plots")
 include("lrmc_range_testing.jl")
-lrmc_range_testing(param = :width,
+ENV["GKSwstype"] = "nul" #disable plot output
+p = lrmc_range_testing(param = :width,
                 param_range = 50:25:75,
                 #OPTIONAL ARGUMENTS
                 num_trials=1,
@@ -18,4 +19,4 @@ lrmc_range_testing(param = :width,
 
                 show=true
                 )
-savefig("width_plot.png")
+savefig(p,"width_plot.png")

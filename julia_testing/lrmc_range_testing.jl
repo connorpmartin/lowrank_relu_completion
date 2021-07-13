@@ -1,7 +1,7 @@
 include("lrmc.jl")
 using StatsBase: rmsd
 using Statistics: mean
-using Plots: plot
+using Plots: plot,scatter!,savefig
 
 #set CVX to machine precision
 #leverage
@@ -36,8 +36,8 @@ function lrmc_range_testing(;param::Symbol,param_range,num_trials::Integer = 5,i
     avg_grades = mean(grades,dims=2)
     #@show grades
     #line plot of average grades with general grades scattered
-    plot(param_range,avg_grades,xlabel = "Value of $(param)",ylabel = "Log Normalized RMSE",title = "Log RMSE vs $(param) value",label = ["Averages" "filler"])
-    return scatter!(repeat(param_range,num_trials),grades[:],label = ["Individual Tests" "filler"])
+    p = plot(param_range,avg_grades,xlabel = "Value of $(param)",ylabel = "Log Normalized RMSE",title = "Log RMSE vs $(param) value",label = ["Averages" "filler"])
+    return scatter!(p,repeat(param_range,num_trials),grades[:],label = ["Individual Tests" "filler"])
 end
 
 #generates a heatmap based on the intersection of the ranges
