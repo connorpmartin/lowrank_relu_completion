@@ -1,8 +1,8 @@
 using Convex: nuclearnorm,Variable,minimize,solve!,evaluate,sumsquares
-using SCS: Optimizer,SCS
+using Mosek: Optimizer
 using LinearAlgebra: norm
 
-function lrmc_general(x::Vector,Ω::BitMatrix;verbose=false,show=false,eps=1e-10)
+function lrmc_general(x::Vector,Ω::BitMatrix;verbose=false,show=false,tol=1e-10)
     #define our guess for the final matrix
     A = Variable(size(Ω)...)
     
@@ -15,9 +15,9 @@ function lrmc_general(x::Vector,Ω::BitMatrix;verbose=false,show=false,eps=1e-10
     problem = minimize(nuclearnorm(A),constraint)
     if show
         println("Running Convex.jl algorithm on $(size(Ω,1)) by $(size(Ω,2)) problem")
-        @time solve!(problem, () -> Mosek.Optimizer(QUIET=!verbose,eps=eps))
+        @time solve!(problem, () -> Mosek.Optimizer(QUIET=!verbose,MSK_DPAR_MIO_TOL_REL_GAP=tol))
     else 
-        solve!(problem, () -> Mosek.Optimizer(QUIET = !verbose,eps=eps))
+        solve!(problem, () -> Mosek.Optimizer(QUIET = !verbose,MSK_DPAR_MIO_TOL_REL_GAP=tol))
     end
 
     #@show evaluate(A)[Ω[:]] - x
@@ -37,7 +37,7 @@ end
 #β is the weight parameter on the nuclear norm regularization
 #This relaxed version minimizes the frobenius norm of the error matrix while regularizing via the nuclear norm.
 #this doesn't work lmao
-function lrmc_general_relaxed(x::Vector,Ω::BitMatrix;verbose=false,β = .01)
+function lrmc_general_relaxed(x::Vector,Ω::BitMatrix;verbose=false,β = .01,tol = 1e-10)
     #define our guess for the final matrix
     A = Variable(size(Ω)...)
     mask = filter(x -> x != 0,Ω[:] .* (1:size(Ω[:],1)))
@@ -45,7 +45,7 @@ function lrmc_general_relaxed(x::Vector,Ω::BitMatrix;verbose=false,β = .01)
     #this is wrong
     problem = minimize(sumsquares(A[mask] - x) + β * nuclearnorm(A))
 
-    solve!(problem, () -> SCS.Optimizer(verbose=verbose))
+    solve!(problem, () -> Mosek.Optimizer(QUIET = !verbose,MSK_DPAR_MIO_TOL_REL_GAP=tol))
 
     return problem.optval
 end
