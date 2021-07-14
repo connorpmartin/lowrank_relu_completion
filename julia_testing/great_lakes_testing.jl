@@ -9,7 +9,7 @@ Pkg.add("StatsBase")
 Pkg.add("Plots")
 include("lrmc_range_testing.jl")
 ENV["GKSwstype"] = "nul" #disable plot output
-ENV["MOSEKLM_LICENSE_FILE"] = "$(Sys.BINDIR)/mosek.lic" #the license file is in this directory
+ENV["MOSEKLM_LICENSE_FILE"] = "$(Sys.BINDIR)\\mosek.lic" #the license file is in this directory
 p = lrmc_range_testing(param = :width,
                 param_range = 400:400,
                 #OPTIONAL ARGUMENTS
