@@ -3,7 +3,7 @@ using StatsBase: rmsd
 using Statistics: mean
 using Plots: plot,scatter!,savefig
 
-#set CVX to machine precision
+#mosek's broken, fix the stupid thing
 #leverage
 
 """

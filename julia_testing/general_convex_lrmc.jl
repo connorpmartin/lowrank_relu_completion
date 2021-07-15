@@ -1,5 +1,6 @@
 using Convex: nuclearnorm,Variable,minimize,solve!,evaluate,sumsquares
-using Mosek: Optimizer
+using Mosek: Mosek #was running into license errors otherwise.
+using MosekTools: Mosek.Optimizer
 using LinearAlgebra: norm
 
 function lrmc_general(x::Vector,Ω::BitMatrix;verbose=false,show=false,tol=1e-10)
