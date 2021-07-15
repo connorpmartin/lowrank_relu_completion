@@ -1,6 +1,5 @@
 using Convex: nuclearnorm,Variable,minimize,solve!,evaluate,sumsquares
-using Mosek: Mosek #was running into license errors otherwise.
-using MosekTools: Mosek.Optimizer
+using SCS
 using LinearAlgebra: norm
 
 function lrmc_general(x::Vector,Ω::BitMatrix;verbose=false,show=false,tol=1e-10)
@@ -16,9 +15,9 @@ function lrmc_general(x::Vector,Ω::BitMatrix;verbose=false,show=false,tol=1e-10
     problem = minimize(nuclearnorm(A),constraint)
     if show
         println("Running Convex.jl algorithm on $(size(Ω,1)) by $(size(Ω,2)) problem")
-        @time solve!(problem, () -> Mosek.Optimizer(QUIET=!verbose,MSK_DPAR_MIO_TOL_REL_GAP=tol))
+        @time solve!(problem, () -> SCS.Optimizer(eps=tol,verbose=verbose,acceleration_lookback = -1))
     else 
-        solve!(problem, () -> Mosek.Optimizer(QUIET = !verbose,MSK_DPAR_MIO_TOL_REL_GAP=tol))
+        solve!(problem, () -> SCS.Optimizer(eps=tol,verbose=verbose,acceleration_lookback = -1))
     end
 
     #@show evaluate(A)[Ω[:]] - x
@@ -46,7 +45,7 @@ function lrmc_general_relaxed(x::Vector,Ω::BitMatrix;verbose=false,β = .01,tol
     #this is wrong
     problem = minimize(sumsquares(A[mask] - x) + β * nuclearnorm(A))
 
-    solve!(problem, () -> Mosek.Optimizer(QUIET = !verbose,MSK_DPAR_MIO_TOL_REL_GAP=tol))
+    solve!(problem, () -> SCS.Optimizer(eps=tol,verbose=verbose))
 
     return problem.optval
 end

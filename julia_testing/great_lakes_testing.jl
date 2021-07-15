@@ -2,16 +2,14 @@
 #install package dependencies
 import Pkg
 Pkg.add("Convex")
-Pkg.add("Mosek")
-Pkg.add("MosekTools")
+Pkg.add("SCS")
 Pkg.add("StatsBase")
 Pkg.add("Plots")
 include("lrmc_range_testing.jl")
 ENV["GKSwstype"] = "nul" #disable plot output
-ENV["MOSEKLM_LICENSE_FILE"] = "$(pwd())/mosek.lic" #the license file is in the working directory with everything else
-@show ENV["MOSEKLM_LICENSE_FILE"]
+
 p = lrmc_range_testing(param = :width,
-                param_range = 50:50,
+                param_range = 500:500,
                 #OPTIONAL ARGUMENTS
                 num_trials=1,
 
