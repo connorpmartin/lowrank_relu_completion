@@ -71,7 +71,6 @@ function lrmc_test(;data_gen::Function = rand_gen,height::Integer = 100,width::I
 
     Â = lrmc(A[Ω[:]],Ω;lrmc_args...)
     
-
     return rmsd(A,Â,normalize=true)
 end
 
