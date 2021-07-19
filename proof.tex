@@ -25,6 +25,28 @@ this is a non-degerate case with 6 possible patterns
 non-degeracy = any r by r subset of u has no 
 
 
+U * w -> sign pattern
+and you want arb. sp v
+
+sign(diag(sign(w/v)) * U * w) = v
+
+
+separate choosing U into two steps:
+
+step 1: choosing the rows as one-dimensional subspaces (spans)
+step 2: choosing the magnitude (+/-) of the rows
+
+the distribution of (the set of sign patterns) with respect to step 2
+is dependent on step 1
+
+
+claim: so long as U is non-degenerate (all r x r submatrices have rank r),
+the distribution of (the set of sign patterns) with respect to step 2
+is constant
+
+so if a metric (like avg. hamming distance between two sign patterns) is constant w.r.t. step 2, it's just constant full stop.
+you have to exhaustively get every possible sign pattern for this
+
 
 
 \end{document}

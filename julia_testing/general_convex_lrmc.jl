@@ -2,6 +2,9 @@ using Convex: nuclearnorm,Variable,minimize,solve!,evaluate,sumsquares
 using SCS
 using LinearAlgebra: norm
 
+
+#check mask
+
 function lrmc_general(x::Vector,Ω::BitMatrix;show=false,optimizer_args...)
     #define our guess for the final matrix
     A = Variable(size(Ω)...)
