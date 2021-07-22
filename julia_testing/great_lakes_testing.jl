@@ -5,6 +5,8 @@ Pkg.add("Convex")
 Pkg.add("SCS")
 Pkg.add("StatsBase")
 Pkg.add("Plots")
+Pkg.add("IterativeSolvers")
+Pkg.add("SparseArrays")
 include("lrmc_range_testing.jl")
 ENV["GKSwstype"] = "nul" #disable plot output
 

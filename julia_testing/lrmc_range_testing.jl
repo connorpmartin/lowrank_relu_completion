@@ -23,7 +23,7 @@ datagen = f(height,width,rank)
 
 
 """
-function lrmc_range_testing(;param::Symbol,param_range,num_trials::Integer = 5,input_kwargs...)
+function lrmc_range_testing(;param::Symbol,param_range,num_trials::Integer = 1,input_kwargs...)
     input_kwargs = Dict{Symbol,Any}(input_kwargs)
     grades = zeros(length(param_range),num_trials)
     for i in 1:length(param_range)
@@ -69,7 +69,7 @@ function lrmc_test(;data_gen::Function = rand_gen,height::Integer = 100,width::I
     A = data_gen(height,width,rank)
     Ω = mask_gen.(A)
 
-    Â = lrmc(A[Ω[:]],Ω;lrmc_args...)
+    Â = lrmc(A[Ω[:]],Ω,rank;lrmc_args...)
     
     return rmsd(A,Â,normalize=true)
 end
