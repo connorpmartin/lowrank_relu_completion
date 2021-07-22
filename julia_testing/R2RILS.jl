@@ -5,7 +5,7 @@ using IterativeSolvers: lsqr
 Implementation of Rank 2r iterative least squares ('R2RILS') for
 matrix completion [1].
 Code by Jonathan Bauch and Boaz Nadler, 2020, cf.
-Translation into Julia by Anya Martin
+Translation into Julia by anyama
 - https://github.com/Jonathan-WIS/R2RILS
 - http://www.wisdom.weizmann.ac.il/~nadler/Projects/R2RILS/R2RILS.html
 =========================================================================
