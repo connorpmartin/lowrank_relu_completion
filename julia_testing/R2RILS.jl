@@ -22,6 +22,7 @@ r = target rank of reconstructed matrix
 t_max = maximal number of iterations [optional] 
 """
 
+#lsqr precision is ideal
 
 #todo: add sparse matrix support & sparse mask support. convert the u and v steps into a mask
 function R2RILS(x::Vector,Ω::BitMatrix,r::Integer;t_max::Integer = 50,ϵ = 1e-15,show=false)
