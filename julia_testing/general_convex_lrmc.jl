@@ -1,11 +1,11 @@
 using Convex: nuclearnorm,Variable,minimize,solve!,evaluate,sumsquares
 using SCS
-using LinearAlgebra: norm
+using LinearAlgebra: norm,svd
 
 
 #check mask
 
-function lrmc_general(x::Vector,Ω::BitMatrix;show=false,optimizer_args...)
+function lrmc_general(x::Vector,Ω::BitMatrix,r::Integer;show=false,optimizer_args...)
     #define our guess for the final matrix
     A = Variable(size(Ω)...)
     
@@ -24,8 +24,8 @@ function lrmc_general(x::Vector,Ω::BitMatrix;show=false,optimizer_args...)
     end
 
     #@show evaluate(A)[Ω[:]] - x
-
-    return evaluate(A)
+    U,Σ,V = svd(evaluate(A))
+    return U[:,1:r] * diagm(Σ[1:r]) * V[:,1:r]'
 end
 
 function lrmc_general(p::Symbol)

@@ -1,7 +1,7 @@
 include("lrmc.jl")
 using StatsBase: rmsd
 using Statistics: mean
-using Plots: plot,scatter!,savefig
+using Plots: plot!,plot,scatter!,savefig
 
 #mosek's broken, fix the stupid thing
 #leverage
@@ -23,21 +23,27 @@ datagen = f(height,width,rank)
 
 
 """
-function lrmc_range_testing(;param::Symbol,param_range,num_trials::Integer = 1,input_kwargs...)
+function lrmc_range_testing(;param::Symbol,param_range,multiplot_param::Symbol = param,multiplot_values = [nothing],num_trials::Integer = 1,input_kwargs...)
     input_kwargs = Dict{Symbol,Any}(input_kwargs)
     grades = zeros(length(param_range),num_trials)
-    for i in 1:length(param_range)
-        input_kwargs[param] = param_range[i]
-        for j in 1:num_trials
-            #run tests
-            grades[i,j] = log10(lrmc_test(;input_kwargs...))
+
+    p = plot(xlabel = "Value of $(param)",ylabel = "Log Normalized RMSE",title = "Log RMSE vs $(param) value",legend=:outertopright)
+    for i in 1:length(multiplot_values)
+        input_kwargs[multiplot_param] = multiplot_values[i]
+        for j in 1:length(param_range)
+            input_kwargs[param] = param_range[j]
+            for k in 1:num_trials
+                #run tests
+                grades[j,k] = log10(lrmc_test(;input_kwargs...))
+            end
         end
+        avg_grades = mean(grades,dims=2)
+        plot!(p,param_range,avg_grades,label = ["Averages with $(multiplot_values[i])" "filler"],legend=:outertopright)
+        scatter!(p,repeat(param_range,num_trials),grades[:],label = ["Individual Tests with $(multiplot_values[i])" "filler"],legend=:outertopright)
     end
-    avg_grades = mean(grades,dims=2)
-    #@show grades
     #line plot of average grades with general grades scattered
-    p = plot(param_range,avg_grades,xlabel = "Value of $(param)",ylabel = "Log Normalized RMSE",title = "Log RMSE vs $(param) value",label = ["Averages" "filler"])
-    return scatter!(p,repeat(param_range,num_trials),grades[:],label = ["Individual Tests" "filler"])
+
+    return p
 end
 
 #generates a heatmap based on the intersection of the ranges

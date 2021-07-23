@@ -1,4 +1,4 @@
-using LinearAlgebra: svd
+using LinearAlgebra: svd,diagm
 using SparseArrays: sparse
 using IterativeSolvers: lsqr
 """
@@ -23,9 +23,10 @@ t_max = maximal number of iterations [optional]
 """
 
 #lsqr precision is ideal
+#todo: difference between matlab and julia lsqr methods
 
 #todo: add sparse matrix support & sparse mask support. convert the u and v steps into a mask
-function R2RILS(x::Vector,Ω::BitMatrix,r::Integer;t_max::Integer = 50,ϵ = 1e-15,show=false)
+function R2RILS(x::Vector,Ω::BitMatrix,r::Integer;t_max::Integer = 200,ϵ = 1e-15,show=false,optargs...)
     h,w = size(Ω);   #w,h = number of rows / colums
     nv = length(x); 
     
@@ -36,7 +37,7 @@ function R2RILS(x::Vector,Ω::BitMatrix,r::Integer;t_max::Integer = 50,ϵ = 1e-1
     rhs = zeros(nv);   #vector of visible entries in matrix X
     
     if show
-        println("Running R2RILS on $w by $h matrix with $nv observed entries")
+        println("Running R2RILS on rank $r $h by $w matrix with $nv observed entries")
     end
     
     #construct observed matrix
@@ -81,8 +82,11 @@ function R2RILS(x::Vector,Ω::BitMatrix,r::Integer;t_max::Integer = 50,ϵ = 1e-1
         
         A = sparse(A)
 
-        z = lsqr(A,x)
-        
+        if show
+            @time z = lsqr(A,x,atol=1e-15,btol=1e-15)
+        else
+            z = lsqr(A,x,atol=1e-15,btol=1e-15)
+        end
         # construct U and V from the entries of the long vector Z 
         Ũ = zeros(size(U))
         Ṽ = zeros(size(V))
@@ -108,7 +112,9 @@ function R2RILS(x::Vector,Ω::BitMatrix,r::Integer;t_max::Integer = 50,ϵ = 1e-1
     
         ϵ_current = sqrt(sum((X̂ .- X̂_prev).^2))/sqrt(w*h)
         observed_RMSE[loop_idx] = norm(x - X̂[Ω]) / nv
-        println("Norm diff is $(ϵ_current)")
+        if show
+            println("Norm diff is $(ϵ_current)")
+        end
         #EARLY STOPPING
         if ϵ_current < ϵ
             if show
