@@ -10,18 +10,14 @@ Pkg.add("SparseArrays")
 include("lrmc_range_testing.jl")
 ENV["GKSwstype"] = "nul" #disable plot output
 
-p = lrmc_range_testing(param = :rank,
-                param_range = 3:2:15,
+p1,p2 = lrmc_range_testing(param = :rank,
+                param_range = 2:2:20,
                 #OPTIONAL ARGUMENTS
                 num_trials=20,
-                multiplot_param = :method,
-                multiplot_values = [R2RILS,lrmc_general],
 
-                width=50,
-                height = 50,
-
-                eps = 1e-10,
-                verbose=true,
-                show=true
+                width=40,
+                height = 40,
+                method = R2RILS,
                 )
-savefig(p,"40b40.png")
+savefig(p,"trial1_nrmse.png")
+savefig(p,"trial1_percent.png")

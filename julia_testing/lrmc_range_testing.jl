@@ -1,7 +1,6 @@
 include("lrmc.jl")
-using StatsBase: rmsd
 using Statistics: mean
-using Plots: plot!,plot,scatter!,savefig,cgrad
+using Plots: plot!,plot,scatter!,savefig,cgrad,xticks!,yticks!,yaxis!
 
 #mosek's broken, fix the stupid thing
 #leverage
@@ -23,11 +22,13 @@ datagen = f(height,width,rank)
 
 
 """
-function lrmc_range_testing(;param::Symbol,param_range,multiplot_param::Symbol = param,multiplot_values = [nothing],num_trials::Integer = 1,input_kwargs...)
+function lrmc_range_testing(;param::Symbol,param_range,multiplot_param::Symbol = param,multiplot_values = [param],num_trials::Integer = 1,input_kwargs...)
     input_kwargs = Dict{Symbol,Any}(input_kwargs)
     grades = zeros(length(param_range),num_trials)
+    const_params  = filter(x -> x != param,[:height,:width,:rank])
 
-    p = plot(xlabel = "Value of $(param)",ylabel = "Normalized RMSE",title = "Log RMSE vs $(param) value",legend=:outertopright)
+    p = plot(xlabel = "$(param)",ylabel = "Normalized RMSE",title = "Using $(input_kwargs[:method]), $(const_params[1]) = $(input_kwargs[const_params[1]]), $(const_params[2]) = $(input_kwargs[const_params[2]])",legend=:outertopright)
+    p2 = plot(xlabel = "$(param)",ylabel = "Unique Convergence %",title = "Using $(input_kwargs[:method]), $(const_params[1]) = $(input_kwargs[const_params[1]]), $(const_params[2]) = $(input_kwargs[const_params[2]])",legend=:outertopright)
     for i in 1:length(multiplot_values)
         input_kwargs[multiplot_param] = multiplot_values[i]
         for j in 1:length(param_range)
@@ -38,12 +39,24 @@ function lrmc_range_testing(;param::Symbol,param_range,multiplot_param::Symbol =
             end
         end
         avg_grades = mean(grades,dims=2)
-        plot!(p,param_range,avg_grades,label = ["Averages with $(multiplot_values[i])" "filler"],legend=:outertopright,yaxis=:log)
-        scatter!(p,repeat(param_range,num_trials),grades[:],label = ["Individual Tests with $(multiplot_values[i])" "filler"],legend=:outertopright,yaxis=:log)
+        percent_grades = sum(grades .< 1e-8,dims=2) ./ size(grades,2) * 100
+                    #NOTE: need to readd "multiplot_values[i]"
+                    #or get this naming working for both single/multiplots.
+        plot!(p,param_range,avg_grades,label = ["Averages" "filler"],legend=:outertopright,yaxis=:log)
+        scatter!(p,repeat(param_range,num_trials),grades[:],label = ["Individual Tests" "filler"],legend=:outertopright,yaxis=:log)
+
+        plot!(p2,param_range,percent_grades,legend=:none)
     end
     #line plot of average grades with general grades scattered
+    xticks!(p,param_range[1:2:end])
+    yticks!(p,10.0 .^ (0:-3:-15))
+    yaxis!(p,(1e-15,1))
 
-    return p
+    xticks!(p2,param_range[1:2:end])
+    yticks!(p2,0:20:100)
+    yaxis!(p,(1e-15,1))
+
+    return p,p2
 end
 
 #generates a heatmap based on the intersection of the ranges
@@ -77,7 +90,7 @@ function lrmc_test(;data_gen::Function = rand_gen,height::Integer = 100,width::I
 
     Â = lrmc(A[Ω[:]],Ω,rank;lrmc_args...)
     
-    return rmsd(A,Â,normalize=true)
+    return sqrt(sum((A - Â) .^ 2) / size(A,1) / size(A,2)) / mean(abs.(A))
 end
 
 function rand_gen(height::Integer = 100,width::Integer = 100,rank::Integer = 5)
