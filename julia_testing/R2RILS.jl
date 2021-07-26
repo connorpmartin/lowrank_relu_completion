@@ -18,7 +18,7 @@ WRITTEN BY BAUCH & NADLER / 2020
 INPUT: 
 y = vector of observed entries, X[Ω]
 omega = mask matrix
-r = target rank of reconstructed matrix
+r = target rank of reconstructed matrix.
 t_max = maximal number of iterations [optional] 
 """
 
@@ -28,6 +28,9 @@ t_max = maximal number of iterations [optional]
 #todo: add sparse matrix support & sparse mask support. convert the u and v steps into a mask
 function R2RILS(x::Vector,Ω::BitMatrix,r::Integer;t_max::Integer = 200,ϵ = 1e-15,show=false,optargs...)
     h,w = size(Ω);   #w,h = number of rows / colums
+    
+    r = min(r,min(h,w)) #casting to prevent indexing errors
+
     nv = length(x); 
     
     #todo: faster way to define this
