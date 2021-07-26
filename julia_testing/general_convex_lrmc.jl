@@ -24,8 +24,7 @@ function lrmc_general(x::Vector,Ω::BitMatrix,r::Integer;show=false,optimizer_ar
     end
 
     #@show evaluate(A)[Ω[:]] - x
-    U,Σ,V = svd(evaluate(A))
-    return U[:,1:r] * diagm(Σ[1:r]) * V[:,1:r]'
+    return evaluate(A)
 end
 
 function lrmc_general(p::Symbol)
