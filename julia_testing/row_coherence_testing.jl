@@ -1,7 +1,7 @@
 using LinearAlgebra: Matrix,norm
 include("lrmc.jl")
 using StatsBase: rmsd
-using Statistics: mean
+using Statistics: mean,sample
 using Plots
 
 function row_coherence_bias_test(height::Integer = 100,width::Integer = 100,rank::Integer = 8,num_trials::Integer = 100,metric::Function = hopkins_statistic)
