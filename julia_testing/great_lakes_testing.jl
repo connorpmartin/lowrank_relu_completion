@@ -17,7 +17,7 @@ p1,p2 = lrmc_range_testing(param = :rank,
 
                 width=40,
                 height = 40,
-                method = lrmc_general,
+                method = scs,
                 )
 savefig(p1,"trial1_scs_nrmse.png")
 savefig(p2,"trial1_scs_percent.png")

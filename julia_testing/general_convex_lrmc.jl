@@ -5,7 +5,7 @@ using LinearAlgebra: norm,svd
 
 #check mask
 
-function lrmc_general(x::Vector,Ω::BitMatrix,r::Integer;show=false,optimizer_args...)
+function scs(x::Vector,Ω::BitMatrix,r::Integer;show=false,optimizer_args...)
     #define our guess for the final matrix
     A = Variable(size(Ω)...)
     
@@ -27,12 +27,12 @@ function lrmc_general(x::Vector,Ω::BitMatrix,r::Integer;show=false,optimizer_ar
     return evaluate(A)
 end
 
-function lrmc_general(p::Symbol)
+function scs(p::Symbol)
     p != :test && throw("Use :test to run unit tests for lrmc_basic")
     #try optimizing a small matrix with smaller rank and few missing entries
     A = rand(100,5) * rand(5,100)
     Ω = BitMatrix(round.(rand(100,100)))
-    Â = lrmc_general(A[Ω[:]],Ω)
+    Â = scs(A[Ω[:]],Ω,5)
     @assert norm(A .- Â) < .001 #we expect full recovery
 end
 

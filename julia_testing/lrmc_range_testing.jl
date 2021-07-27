@@ -28,7 +28,7 @@ function lrmc_range_testing(;param::Symbol,param_range,multiplot_param::Symbol =
     const_params  = filter(x -> x != param,[:height,:width,:rank])
 
     p = plot(xlabel = "$(param)",ylabel = "Normalized RMSE",title = "Using Julia $(input_kwargs[:method]), $(const_params[1]) = $(input_kwargs[const_params[1]]), $(const_params[2]) = $(input_kwargs[const_params[2]])",legend=:outertopright)
-    p2 = plot(xlabel = "$(param)",ylabel = "Unique Convergence %",title = "Using $(input_kwargs[:method]), $(const_params[1]) = $(input_kwargs[const_params[1]]), $(const_params[2]) = $(input_kwargs[const_params[2]])",legend=:outertopright)
+    p2 = plot(xlabel = "$(param)",ylabel = "Unique Convergence %",title = "Using Julia $(input_kwargs[:method]), $(const_params[1]) = $(input_kwargs[const_params[1]]), $(const_params[2]) = $(input_kwargs[const_params[2]])",legend=:outertopright)
     for i in 1:length(multiplot_values)
         input_kwargs[multiplot_param] = multiplot_values[i]
         for j in 1:length(param_range)
