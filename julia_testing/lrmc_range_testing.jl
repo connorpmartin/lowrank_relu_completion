@@ -27,7 +27,7 @@ function lrmc_range_testing(;param::Symbol,param_range,multiplot_param::Symbol =
     grades = zeros(length(param_range),num_trials)
     const_params  = filter(x -> x != param,[:height,:width,:rank])
 
-    p = plot(xlabel = "$(param)",ylabel = "Normalized RMSE",title = "Using $(input_kwargs[:method]), $(const_params[1]) = $(input_kwargs[const_params[1]]), $(const_params[2]) = $(input_kwargs[const_params[2]])",legend=:outertopright)
+    p = plot(xlabel = "$(param)",ylabel = "Normalized RMSE",title = "Using Julia $(input_kwargs[:method]), $(const_params[1]) = $(input_kwargs[const_params[1]]), $(const_params[2]) = $(input_kwargs[const_params[2]])",legend=:outertopright)
     p2 = plot(xlabel = "$(param)",ylabel = "Unique Convergence %",title = "Using $(input_kwargs[:method]), $(const_params[1]) = $(input_kwargs[const_params[1]]), $(const_params[2]) = $(input_kwargs[const_params[2]])",legend=:outertopright)
     for i in 1:length(multiplot_values)
         input_kwargs[multiplot_param] = multiplot_values[i]
@@ -49,12 +49,12 @@ function lrmc_range_testing(;param::Symbol,param_range,multiplot_param::Symbol =
     end
     #line plot of average grades with general grades scattered
     xticks!(p,param_range[1:2:end])
-    yticks!(p,10.0 .^ (0:-3:-15))
-    yaxis!(p,(1e-15,1))
+    yticks!(p,10.0 .^ (1:-3:-17))
+    yaxis!(p,(1e-17,10))
 
     xticks!(p2,param_range[1:2:end])
     yticks!(p2,0:20:100)
-    yaxis!(p,(1e-15,1))
+    yaxis!(p2,(0,100))
 
     return p,p2
 end
