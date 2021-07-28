@@ -12,4 +12,4 @@
 # Choose a version of MATLAB by loading a module:
 module load julia
 # Remove -singleCompThread below if you are using parallel commands:
-julia --threads 8 -e 'include("great_lakes_testing.jl")'
+julia -e 'include("great_lakes_testing.jl")'
