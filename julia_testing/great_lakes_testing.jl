@@ -15,6 +15,7 @@ p1,p2 = lrmc_range_testing(param = :rank,
                 #OPTIONAL ARGUMENTS
                 num_trials=20,
 
+                eps=1e-15,
                 width=40,
                 height = 40,
                 method = scs,
