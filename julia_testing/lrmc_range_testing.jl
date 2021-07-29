@@ -1,6 +1,7 @@
 include("lrmc.jl")
 using Statistics: mean
 using Plots: plot!,plot,scatter!,savefig,cgrad,xticks!,yticks!,yaxis!
+using LinearAlgebra: norm
 
 #mosek's broken, fix the stupid thing
 #leverage
@@ -90,7 +91,7 @@ function lrmc_test(;data_gen::Function = rand_gen,height::Integer = 100,width::I
 
     Â = lrmc(A[Ω[:]],Ω,rank;lrmc_args...)
     
-    return sqrt(sum((A - Â) .^ 2) / size(A,1) / size(A,2)) / mean(abs.(A))
+    return norm(A - Â) / norm(A)
 end
 
 function rand_gen(height::Integer = 100,width::Integer = 100,rank::Integer = 5)
