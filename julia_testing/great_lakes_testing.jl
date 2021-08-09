@@ -21,5 +21,9 @@ p1,p2 = lrmc_range_testing(param = :rank,
                 height = 40,
                 method = scs,
                 )
-savefig(p1,"trial1_scs_nrmse.png")
-savefig(p2,"trial1_scs_percent.png")
+#save as pdf
+#and save 
+#look at column errors & completability
+#check to see if row & column has rank r+1 positive entries
+savefig(p1,"trial1_scs_nrmse.pdf")
+savefig(p2,"trial1_scs_percent.pdf")
