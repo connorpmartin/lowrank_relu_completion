@@ -1,10 +1,9 @@
 include("lrmc.jl")
 using Statistics: mean
-using Plots: plot!,plot,scatter!,savefig,cgrad,xticks!,yticks!,yaxis!
+using StatsBase: median
+using Plots: plot!,plot,scatter!,savefig,cgrad,xticks!,yticks!,yaxis!,xaxis!
 using LinearAlgebra: norm
 
-#mosek's broken, fix the stupid thing
-#leverage
 
 """
 parameter :height, :width, :rank, :method
@@ -39,12 +38,12 @@ function lrmc_range_testing(;param::Symbol,param_range,multiplot_param::Symbol =
                 grades[j,k] = lrmc_test(;input_kwargs...)
             end
         end
-        avg_grades = mean(grades,dims=2)
+        median_grades = median(grades,dims=2)
         percent_grades = sum(grades .< 1e-8,dims=2) ./ size(grades,2) * 100
                     #NOTE: need to readd "multiplot_values[i]"
                     #or get this naming working for both single/multiplots.
-        plot!(p,param_range,avg_grades,label = ["Averages" "filler"],legend=:outertopright,yaxis=:log)
-        scatter!(p,repeat(param_range,num_trials),grades[:],label = ["Individual Tests" "filler"],legend=:outertopright,yaxis=:log)
+        plot!(p,param_range,median_grades,label = ["Medians" "filler"],legend=:outertopright,yaxis=:log,color=:blue)
+        scatter!(p,repeat(param_range,num_trials),grades[:],label = ["Individual Tests" "filler"],legend=:outertopright,yaxis=:log,markercolor=:white,markerstrokecolor=:red)
 
         plot!(p2,param_range,percent_grades,legend=:none)
     end
@@ -52,10 +51,12 @@ function lrmc_range_testing(;param::Symbol,param_range,multiplot_param::Symbol =
     xticks!(p,param_range[1:2:end])
     yticks!(p,10.0 .^ (1:-3:-17))
     yaxis!(p,(1e-17,10))
+    xaxis!(p,(param_range[1],param_range[end]))
 
     xticks!(p2,param_range[1:2:end])
     yticks!(p2,0:20:100)
     yaxis!(p2,(0,100))
+    xaxis!(p,(param_range[1],param_range[end]))
 
     return p,p2
 end
