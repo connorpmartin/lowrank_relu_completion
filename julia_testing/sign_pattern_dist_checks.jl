@@ -8,3 +8,4 @@ If the paper's statement is true, then regardless of the orientation of hyperpla
 
     A = randn(40,10) * randn(10,40)
     counta += any(.!(sum(A .> 0,dims=1) > 10))
+d
